@@ -1,0 +1,150 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* Encabezado */
+header {
+    background: #333;
+    color: #fff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #0779e4 3px solid;
+}
+
+header a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+header h1 {
+    float: left;
+    margin-top: 0;
+}
+
+header nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+/* Sección Hero */
+#hero {
+    min-height: 400px;
+    background: #0779e4;
+    color: #fff;
+    text-align: center;
+    padding-top: 100px;
+}
+
+#hero h2 {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+#hero p {
+    font-size: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background: #555;
+}
+
+/* Secciones Generales */
+section {
+    padding: 40px 0;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+section:nth-child(even) {
+    /* background: #f4f4f4; */ /* Alternar colores si se desea */
+}
+
+section h3 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+/* Formulario de Contacto (básico) */
+#contactanos form div {
+    margin-bottom: 15px;
+}
+
+#contactanos label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#contactanos input[type="text"],
+#contactanos input[type="email"],
+#contactanos textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; /* Para que el padding no afecte el width total */
+}
+
+#contactanos button[type="submit"] {
+    display: block;
+    width: auto;
+    background: #0779e4;
+    color: #fff;
+    border: 0;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#contactanos button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Pie de Página */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 5px 0;
+} 

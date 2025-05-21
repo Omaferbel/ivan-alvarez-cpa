@@ -1,0 +1,1 @@
+// Archivo JavaScript principal (vacío por ahora) 

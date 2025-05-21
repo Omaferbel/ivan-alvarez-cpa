@@ -1,0 +1,13 @@
+# Ignorar el archivo de configuración de la base de datos
+src/config/database.php
+
+# Directorios de dependencias (si usamos Composer más adelante)
+/vendor/
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db 
