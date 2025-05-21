@@ -52,14 +52,13 @@ require_once __DIR__ . '/../src/includes/header.php';
                     <p>Tus responsabilidades fiscales son cada vez más complejas y difíciles de manejar por tu cuenta.</p>
                 </div>
             </div>
-            <!-- Considerar añadir aquí la imagen ivan-cpa-foto-problemas.png si se integra bien con el nuevo diseño -->
-            <!-- <img src="<?php echo $baseUrl; ?>images/ivan-cpa-foto-problemas.png" alt="Desafíos de empresarios" class="img-fluid mt-4"> -->
         </div>
     </section>
 
-    <section id="llamada-accion-intermedia" class="cta-section text-center section-padding bg-light">
+    <section id="llamada-accion-intermedia" class="cta-section text-center section-padding">
         <div class="container">
             <h2 class="section-title-cta">Miles de Empresarios Latinos en EE.UU. Enfrentan Retos Similares. ¡Hay Solución!</h2>
+            <a href="#contactanos" class="btn btn-primary">Hablemos de Tus Desafíos</a>
         </div>
     </section>
 
@@ -67,11 +66,13 @@ require_once __DIR__ . '/../src/includes/header.php';
         <div class="container">
             <h2 class="section-title text-center">Conoce a Tu Aliado CPA: Iván Alvarez</h2>
             <div class="acerca-content">
-                <img src="<?php echo $baseUrl; ?>images/ivan-cpa-foto-acerca-de.png" alt="Ivan Alvarez, CPA" class="acerca-imagen">
+                <div class="acerca-imagen">
+                    <img src="<?php echo $baseUrl; ?>images/ivan-cpa-foto-acerca-de.png" alt="Ivan Alvarez, CPA">
+                </div>
                 <div class="acerca-texto">
-                    <p>Con más de 14 años de experiencia en el ámbito fiscal y contable, Iván Alvarez, CPA, se ha consolidado como un referente para la comunidad de empresarios latinos en Estados Unidos. Su trayectoria no solo se destaca por la pericia técnica, sino por un profundo entendimiento de los desafíos únicos que enfrentan los emprendedores latinos al navegar el complejo sistema tributario estadounidense.</p>
-                    <p>Iván no es solo un contador; es un estratega financiero que se apasiona por el éxito de sus clientes. Su enfoque va más allá de la simple presentación de impuestos; busca empoderar a los dueños de negocios con el conocimiento y las herramientas necesarias para tomar decisiones financieras inteligentes, optimizar su carga fiscal y asegurar la salud financiera a largo plazo de sus empresas.</p>
-                    <p>Fundador también de "Ivan Alvarez Academy", demuestra un fuerte compromiso con la educación financiera, buscando desmitificar la contabilidad y los impuestos para que los empresarios puedan tener mayor control y comprensión de sus números. Esta vocación por enseñar se traduce en una comunicación clara, paciente y adaptada a las necesidades de cada cliente, asegurando que comprendan cada paso del proceso.</p>
+                    <p>Con más de <strong>14 años de experiencia</strong> en el ámbito fiscal y contable, Iván Alvarez, CPA, se ha consolidado como un referente para la comunidad de empresarios latinos en Estados Unidos. Su trayectoria no solo se destaca por la pericia técnica, sino por un profundo entendimiento de los desafíos únicos que enfrentan los emprendedores latinos al navegar el complejo sistema tributario estadounidense.</p>
+                    <p>Iván no es solo un contador; es un <strong>estratega financiero</strong> que se apasiona por el éxito de sus clientes. Su enfoque va más allá de la simple presentación de impuestos; busca empoderar a los dueños de negocios con el conocimiento y las herramientas necesarias para tomar decisiones financieras inteligentes, optimizar su carga fiscal y asegurar la salud financiera a largo plazo de sus empresas.</p>
+                    <p>Fundador también de <strong>"Ivan Alvarez Academy"</strong>, demuestra un fuerte compromiso con la educación financiera, buscando desmitificar la contabilidad y los impuestos para que los empresarios puedan tener mayor control y comprensión de sus números. Esta vocación por enseñar se traduce en una comunicación clara, paciente y adaptada a las necesidades de cada cliente, asegurando que comprendan cada paso del proceso.</p>
                     <p>Si buscas un CPA que combine experiencia, ética profesional, un genuino interés en tu éxito y la capacidad de explicarte las cosas de manera comprensible, has encontrado a tu aliado ideal en Iván Alvarez.</p>
                 </div>
             </div>
@@ -81,34 +82,89 @@ require_once __DIR__ . '/../src/includes/header.php';
     <section id="servicios" class="servicios-section section-padding bg-light">
         <div class="container">
             <h2 class="section-title text-center">Servicios Contables y Fiscales a Tu Medida</h2>
-            <ul class="grid-servicios">
-                <li class="servicio-item">Asesoría Fiscal Estratégica</li>
-                <li class="servicio-item">Contabilidad Integral para Empresas</li>
-                <li class="servicio-item">Planificación Financiera y Presupuestos</li>
-                <li class="servicio-item">Preparación de Impuestos Personales y Corporativos</li>
-                <li class="servicio-item">Resolución de Problemas con el IRS</li>
-                <li class="servicio-item">Consultoría para Nuevos Negocios (LLC, S-Corp)</li>
-            </ul>
+            <p class="section-intro text-center">Soluciones personalizadas diseñadas para las necesidades específicas de tu negocio.</p>
+            <div class="grid-servicios">
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="servicio-title">Asesoría Fiscal Estratégica</h3>
+                    <p class="servicio-desc">Desarrollamos estrategias fiscales personalizadas para minimizar tu carga tributaria y maximizar tus beneficios financieros a largo plazo.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="servicio-title">Contabilidad Integral</h3>
+                    <p class="servicio-desc">Mantenemos tus libros contables en orden, desde la entrada de datos hasta reportes financieros completos, ajustados a las necesidades de tu empresa.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="servicio-title">Planificación Financiera</h3>
+                    <p class="servicio-desc">Creamos presupuestos efectivos y planes financieros que te ayudan a alcanzar tus metas de crecimiento y estabilidad empresarial.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="servicio-title">Preparación de Impuestos</h3>
+                    <p class="servicio-desc">Gestionamos tus declaraciones fiscales personales y corporativas, asegurando el cumplimiento de todas las regulaciones y aprovechando cada deducción posible.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="servicio-title">Resolución de Problemas con el IRS</h3>
+                    <p class="servicio-desc">Te representamos ante el IRS para resolver notificaciones, auditorías y cualquier problema fiscal que pueda surgir, minimizando tu estrés y responsabilidad.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+                <div class="servicio-item">
+                    <div class="servicio-icon icon-glow">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="servicio-title">Consultoría para Nuevos Negocios</h3>
+                    <p class="servicio-desc">Asesoramos en la formación de entidades (LLC, S-Corp), estructura legal y estrategias fiscales para emprendedores que están iniciando su camino empresarial.</p>
+                    <div class="servicio-cta">
+                        <a href="#contactanos" class="btn-servicio">Más información</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="testimonios" class="testimonios-section section-padding">
         <div class="container">
             <h2 class="section-title text-center">Testimonios que Inspiran Confianza</h2>
+            <p class="section-intro text-center">Lo que nuestros clientes dicen de nuestro servicio.</p>
             <div class="grid-testimonios">
                 <div class="testimonio-item">
                     <p>"Mi constructora estaba al borde del colapso... Iván no solo salvó mi negocio; también me devolvió la tranquilidad."</p>
                     <footer>- Luis G., Dueño de Constructora en Texas</footer>
                 </div>
                 <div class="testimonio-item">
-                    <p>"Llevaba años pagando impuestos sin estar seguro... Su profesionalismo marcó la diferencia."</p>
+                    <p>"Llevaba años pagando impuestos sin estar seguro... Su profesionalismo marcó la diferencia en mis finanzas."</p>
                     <footer>- Marta S., Propietaria de Constructora en California</footer>
                 </div>
                 <div class="testimonio-item">
-                    <p>"Cada mes era un caos intentar manejar la nómina... Hoy mi equipo y yo trabajamos con tranquilidad."</p>
+                    <p>"Cada mes era un caos intentar manejar la nómina... Hoy mi equipo y yo trabajamos con tranquilidad gracias a su asesoría."</p>
                     <footer>- Jorge M., Dueño de Constructora en Arizona</footer>
                 </div>
-                <!-- Añadir más testimonios si es necesario -->
             </div>
         </div>
     </section>
