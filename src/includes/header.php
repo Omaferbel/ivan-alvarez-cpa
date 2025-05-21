@@ -24,37 +24,46 @@ if ($baseUrl === '//') {
 // Para este proyecto, ya que app.ivanalvarez.cpa apunta a /public/, el baseUrl es '/'
 $baseUrl = '/';
 
+// Título por defecto si no se establece en la página específica
+$currentPageTitle = isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Ivan Alvarez CPA';
+
+// Favicon - Asegúrate de que favicon.png esté en public/images/
+$faviconPath = $baseUrl . 'images/favicon.png'; // Asumiendo que nombras tu favicon como favicon.png
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Ivan Alvarez CPA'; ?></title>
-    <!-- Favicon (ejemplo, actualiza la ruta si es necesario) -->
-    <!-- <link rel="icon" href="<?php echo $baseUrl; ?>images/favicon.ico" type="image/x-icon"> -->
-    
-    <!-- Estilos CSS -->
+    <title><?php echo $currentPageTitle; ?></title>
+    <?php if (file_exists($_SERVER['DOCUMENT_ROOT'] . $faviconPath)) : ?>
+    <link rel="icon" href="<?php echo $faviconPath; ?>" type="image/png">
+    <?php endif; ?>
     <link rel="stylesheet" href="<?php echo $baseUrl; ?>css/style.css">
-    
-    <!-- Puedes añadir más metaetiquetas aquí (descripción, keywords, etc.) -->
+    <!-- Podrías añadir Google Fonts aquí si lo deseas -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <div class="container">
-            <!-- Logo (ejemplo) -->
-            <!-- <a href="<?php echo $baseUrl; ?>index.php" class="logo">
-                <img src="<?php echo $baseUrl; ?>images/logo.png" alt="Logo Ivan Alvarez CPA">
-            </a> -->
-            <h1><a href="<?php echo $baseUrl; ?>index.php">Ivan Alvarez CPA (Sitio en Desarrollo)</a></h1>
-            
-            <nav>
+            <div class="logo-container">
+                <a href="<?php echo $baseUrl; ?>">
+                    <img src="<?php echo $baseUrl; ?>images/logo-principal-header.png" alt="Ivan Alvarez CPA Logo" id="logo">
+                </a>
+                <!-- <span class="logo-text">Ivan Alvarez CPA</span> -->
+            </div>
+            <nav id="main-nav">
                 <ul>
-                    <!-- <li><a href="<?php echo $baseUrl; ?>index.php">Inicio</a></li> -->
-                    <!-- <li><a href="<?php echo $baseUrl; ?>servicios.php">Servicios</a></li> -->
-                    <!-- <li><a href="<?php echo $baseUrl; ?>contacto.php">Contacto</a></li> -->
+                    <li><a href="<?php echo $baseUrl; ?>#hero">Inicio</a></li>
+                    <li><a href="<?php echo $baseUrl; ?>#problemas">Desafíos Comunes</a></li>
+                    <li><a href="<?php echo $baseUrl; ?>#acerca-de-ivan">Acerca de Mí</a></li>
+                    <li><a href="<?php echo $baseUrl; ?>#servicios">Servicios</a></li>
+                    <li><a href="<?php echo $baseUrl; ?>#testimonios">Testimonios</a></li>
+                    <li><a href="<?php echo $baseUrl; ?>#contactanos" class="cta-nav">Contáctanos</a></li>
                 </ul>
             </nav>
+            <button id="mobile-menu-toggle">&#9776;<span> Menú</span></button>
         </div>
     </header>
     <main>
