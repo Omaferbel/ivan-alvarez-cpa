@@ -19,14 +19,14 @@ require_once __DIR__ . '/../src/includes/header.php';
     <section id="hero" class="hero-section text-center">
         <div class="container">
             <!-- La imagen ivan-cpa-foto-principal.png se añadirá como fondo mediante CSS -->
-            <h1 class="hero-title">Ivan Alvarez CPA</h1>
-            <p class="hero-subtitle">Contador Público Certificado y Asesor Fiscal para Empresarios Latinos en EE.UU.</p>
-            <p class="hero-text">Recupera el control de tu negocio con estrategias personalizadas para gestionar tus impuestos, el flujo de efectivo y mucho más.</p>
-            <a href="#contactanos" class="btn btn-primary btn-lg">Solicita una Consulta</a>
+            <h1 class="hero-title">Gestiona tus finanzas con confianza</h1>
+            <p class="hero-subtitle">Servicios contables y fiscales especializados para empresarios latinos en Estados Unidos</p>
+            <p class="hero-text">Soluciones personalizadas que te permitirán tomar el control de tu negocio, optimizar tus impuestos y maximizar tu flujo de efectivo.</p>
+            <a href="#contactanos" class="btn btn-naranja btn-lg">Agenda una consulta gratuita</a>
         </div>
     </section>
 
-    <section id="problemas" class="problemas-section section-padding">
+    <section id="problemas" class="problemas-section section-padding bg-white">
         <div class="container">
             <h2 class="section-title text-center">¿Te Sientes Identificado?</h2>
             <p class="section-intro text-center">Muchos empresarios enfrentan estos desafíos. No estás solo.</p>
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../src/includes/header.php';
         </div>
     </section>
 
-    <section id="acerca-de-ivan" class="acerca-section section-padding">
+    <section id="acerca-de-ivan" class="acerca-section section-padding bg-dark">
         <div class="container">
             <h2 class="section-title text-center">Conoce a Tu Aliado CPA: Iván Alvarez</h2>
             <div class="acerca-content">
@@ -148,7 +148,7 @@ require_once __DIR__ . '/../src/includes/header.php';
         </div>
     </section>
 
-    <section id="testimonios" class="testimonios-section section-padding">
+    <section id="testimonios" class="testimonios-section section-padding bg-white">
         <div class="container">
             <h2 class="section-title text-center">Testimonios que Inspiran Confianza</h2>
             <p class="section-intro text-center">Lo que nuestros clientes dicen de nuestro servicio.</p>

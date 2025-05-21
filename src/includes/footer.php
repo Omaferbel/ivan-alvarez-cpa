@@ -18,10 +18,14 @@
                 </div>
                 <div class="footer-widget widget-contact">
                     <h4 class="widget-title">Información de Contacto</h4>
-                    <ul>
+                    <ul class="contact-info-list">
                         <li><strong>Teléfono:</strong> <a href="tel:2143903255">214-390-3255</a></li>
                         <li><strong>Email:</strong> <a href="mailto:ivan@ivanalvarez.cpa">ivan@ivanalvarez.cpa</a></li>
-                        <li><strong>Dirección:</strong> 8330 LBJ Freeway, Suite B654, Dallas, Texas, Estados Unidos 75243</li>
+                        <li class="address-item">
+                            <strong>Dirección:</strong><br class="mobile-break"> 
+                            <span class="address-line">8330 LBJ Freeway, Suite B654,</span><br class="mobile-break">
+                            <span class="address-line">Dallas, Texas, Estados Unidos 75243</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="footer-widget widget-links">
@@ -40,7 +44,7 @@
                         <li>Sábados: 10:00 AM - 2:00 PM</li>
                         <li>Domingos: Cerrado</li>
                     </ul>
-                    <p style="margin-top: 15px;">
+                    <p class="cta-footer" style="margin-top: 15px;">
                         <a href="<?php echo $baseUrl; ?>#contactanos" class="btn btn-primary btn-sm">Agenda tu consulta</a>
                     </p>
                 </div>

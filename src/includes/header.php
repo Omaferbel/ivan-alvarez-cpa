@@ -60,7 +60,7 @@ $faviconPath = $baseUrl . 'images/favicon.png'; // Asumiendo que nombras tu favi
         <div class="container">
             <div class="logo-container">
                 <a href="<?php echo $baseUrl; ?>" aria-label="Ivan Alvarez CPA - Inicio">
-                    <img src="<?php echo $baseUrl; ?>images/logo-principal-header.png" alt="Ivan Alvarez CPA Logo" id="logo">
+                    <img src="<?php echo $baseUrl; ?>images/logo-principal-header.png" alt="Ivan Alvarez CPA" id="logo">
                 </a>
             </div>
             <nav id="main-nav">
