@@ -24,9 +24,11 @@ require_once __DIR__ . '/../src/includes/header.php';
             <p class="hero-text">Soluciones personalizadas que te permitirán tomar el control de tu negocio, optimizar tus impuestos y maximizar tu flujo de efectivo.</p>
             <a href="#contactanos" class="btn btn-naranja btn-lg">Agenda una consulta gratuita</a>
         </div>
+        <!-- Indicador de scroll -->
+        <div class="scroll-indicator" aria-hidden="true"></div>
     </section>
 
-    <section id="problemas" class="problemas-section section-padding bg-white">
+    <section id="problemas" class="problemas-section section-padding bg-white full-width-section">
         <div class="container">
             <h2 class="section-title text-center">¿Te Sientes Identificado?</h2>
             <p class="section-intro text-center">Muchos empresarios enfrentan estos desafíos. No estás solo.</p>
@@ -62,7 +64,7 @@ require_once __DIR__ . '/../src/includes/header.php';
         </div>
     </section>
 
-    <section id="acerca-de-ivan" class="acerca-section section-padding bg-dark">
+    <section id="acerca-de-ivan" class="acerca-section section-padding full-width-section">
         <div class="container">
             <h2 class="section-title text-center">Conoce a Tu Aliado CPA: Iván Alvarez</h2>
             <div class="acerca-content">
@@ -79,7 +81,7 @@ require_once __DIR__ . '/../src/includes/header.php';
         </div>
     </section>
 
-    <section id="servicios" class="servicios-section section-padding bg-light">
+    <section id="servicios" class="servicios-section section-padding bg-dark full-width-section">
         <div class="container">
             <h2 class="section-title text-center">Servicios Contables y Fiscales a Tu Medida</h2>
             <p class="section-intro text-center">Soluciones personalizadas diseñadas para las necesidades específicas de tu negocio.</p>
@@ -148,7 +150,7 @@ require_once __DIR__ . '/../src/includes/header.php';
         </div>
     </section>
 
-    <section id="testimonios" class="testimonios-section section-padding bg-white">
+    <section id="testimonios" class="testimonios-section section-padding bg-white full-width-section">
         <div class="container">
             <h2 class="section-title text-center">Testimonios que Inspiran Confianza</h2>
             <p class="section-intro text-center">Lo que nuestros clientes dicen de nuestro servicio.</p>
@@ -171,8 +173,10 @@ require_once __DIR__ . '/../src/includes/header.php';
 
     <section id="contactanos" class="contacto-section section-padding bg-dark">
         <div class="container">
-            <h2 class="section-title text-center text-light">Da el Primer Paso Hacia la Claridad Financiera</h2>
-            <p class="section-intro text-center text-light">¿Listo para tomar el control de tus finanzas? Cuéntanos tu situación y permítenos ayudarte. Completa el formulario y agenda una consulta.</p>
+            <div class="contact-text-content">
+                <h2 class="section-title text-light">Da el Primer Paso Hacia la Claridad Financiera</h2>
+                <p class="section-intro text-light">¿Listo para tomar el control de tus finanzas? Cuéntanos tu situación y permítenos ayudarte. Completa el formulario y agenda una consulta.</p>
+            </div>
             <form id="contactForm" class="contact-form">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo:</label>

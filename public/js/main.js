@@ -9,29 +9,95 @@ document.addEventListener("DOMContentLoaded", function() {
     if (mobileMenuToggle) {
         mobileMenuToggle.addEventListener('click', function() {
             mainNav.classList.toggle('active');
+            this.setAttribute('aria-expanded', mainNav.classList.contains('active') ? 'true' : 'false');
+            document.body.classList.toggle('nav-open');
         });
     }
 
-    // Cerrar menú al hacer clic en un enlace (en móvil)
+    // Inicializar acordeón para el footer
+    function initFooterAccordion() {
+        const accordionWidgets = document.querySelectorAll('#main-footer .footer-widget.accordion-mode');
+
+        accordionWidgets.forEach(widget => {
+            const title = widget.querySelector('.widget-title');
+            if (title) {
+                title.classList.add('accordion-icon');
+
+                title.addEventListener('click', function() {
+                    const parentWidget = this.parentElement;
+                    const isActive = parentWidget.classList.contains('active');
+
+                    // Cerrar todos los widgets activos primero
+                    accordionWidgets.forEach(otherWidget => {
+                        if (otherWidget !== parentWidget) { // No cerrar el que se está clickeando todavía
+                            otherWidget.classList.remove('active');
+                        }
+                    });
+
+                    // Abrir/cerrar el widget clickeado
+                    if (isActive) {
+                        parentWidget.classList.remove('active');
+                    } else {
+                        parentWidget.classList.add('active');
+                    }
+                });
+            }
+        });
+
+        // Opcional: Activar el primer widget por defecto si es necesario y visible en modo acordeón
+        // Esto se puede manejar mejor con CSS o si se requiere explícitamente.
+        // Por ahora, lo dejamos así para que el usuario decida cuál abrir.
+        // const firstWidget = document.querySelector('#main-footer .footer-widget.accordion-mode');
+        // if (firstWidget && window.innerWidth <= 768) { // Solo activar si estamos en vista móvil
+        //     firstWidget.classList.add('active');
+        // }
+    }
+    
+    // Inicializar acordeón solo una vez al cargar
+    initFooterAccordion();
+
+    // No es necesario reinicializar en resize si la funcionalidad no cambia drásticamente con el tamaño
+    // window.addEventListener('resize', initFooterAccordion);
+
+    // Cerrar menú al hacer clic en un enlace (en móvil) o al hacer clic fuera del menú
     const navLinks = document.querySelectorAll('#main-nav a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             if (window.innerWidth <= 768) {
                 mainNav.classList.remove('active');
+                document.body.classList.remove('nav-open');
+                if (mobileMenuToggle) {
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }
             }
         });
     });
 
+    // Cerrar el menú al hacer clic fuera de él
+    document.addEventListener('click', function(event) {
+        if (mainNav.classList.contains('active') && 
+            !mainNav.contains(event.target) && 
+            event.target !== mobileMenuToggle) {
+            mainNav.classList.remove('active');
+            document.body.classList.remove('nav-open');
+            if (mobileMenuToggle) {
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+
     // Cambiar estilo del header al hacer scroll
     window.addEventListener('scroll', function() {
+        requestAnimationFrame(function() {
         if (window.scrollY > 50) {
             mainHeader.classList.add('scrolled');
         } else {
             mainHeader.classList.remove('scrolled');
         }
+        });
     });
 
-    // Animación de desplazamiento suave para enlaces de anclaje
+    // Animación de desplazamiento suave para enlaces de anclaje con offset dinámico para el header
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -41,9 +107,9 @@ document.addEventListener("DOMContentLoaded", function() {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                const headerOffset = 100; // Altura del encabezado fijo
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                // Cálculo dinámico del offset basado en la altura actual del header
+                const headerHeight = mainHeader.offsetHeight;
+                const offsetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20; // 20px de padding extra
 
                 window.scrollTo({
                     top: offsetPosition,
@@ -64,11 +130,29 @@ document.addEventListener("DOMContentLoaded", function() {
             // Validación básica del formulario
             const nombre = document.getElementById('nombre').value;
             const email = document.getElementById('email').value;
+            const mensaje = document.getElementById('mensaje').value;
             
-            if (!nombre || !email) {
-                // Mostrar mensaje de error
+            // Array para recopilar mensajes de error
+            let errorMessages = [];
+            
+            if (!nombre) {
+                errorMessages.push('Por favor ingrese su nombre.');
+            }
+            
+            if (!email) {
+                errorMessages.push('Por favor ingrese su correo electrónico.');
+            } else if (!isValidEmail(email)) {
+                errorMessages.push('Por favor ingrese un correo electrónico válido.');
+            }
+            
+            if (!mensaje) {
+                errorMessages.push('Por favor ingrese un mensaje.');
+            }
+            
+            if (errorMessages.length > 0) {
+                // Mostrar errores
                 formMessages.className = 'form-messages error';
-                formMessages.textContent = 'Por favor complete todos los campos requeridos.';
+                formMessages.innerHTML = errorMessages.join('<br>');
                 formMessages.style.display = 'block';
                 return;
             }
@@ -89,235 +173,135 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // Efecto de revelación al hacer scroll
+    // Función para validar correo electrónico
+    function isValidEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    // Efecto de revelación al hacer scroll con intersección observer para mejor rendimiento
+    function initIntersectionObserver() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 // Elemento visible al 15%
+        };
+        
     const revealElements = document.querySelectorAll('.problema-item, .servicio-item, .testimonio-item, .acerca-imagen, .acerca-texto');
     
-    function checkReveal() {
-        const windowHeight = window.innerHeight;
-        const revealPoint = 150;
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Forzar estilos para asegurar visibilidad
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // Dejar de observar una vez revelado
+                }
+            });
+        };
+        
+        const observer = new IntersectionObserver(revealCallback, observerOptions);
         
         revealElements.forEach(element => {
-            const revealTop = element.getBoundingClientRect().top;
+            // Asegurarse que los elementos comienzan ocultos si JavaScript está activo
+            // Esto previene un "flash" de contenido si el CSS tarda en aplicarse
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(50px)';
+            observer.observe(element);
+        });
+    }
+    
+    // Inicializar observer
+    initIntersectionObserver();
+    
+    // Resaltar la sección actual en el menú de navegación
+    function highlightCurrentSection() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('#main-nav a');
+        
+        // Usar requestAnimationFrame para optimizar rendimiento
+        requestAnimationFrame(() => {
+            let currentSection = '';
             
-            if (revealTop < windowHeight - revealPoint) {
-                element.classList.add('revealed');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - mainHeader.offsetHeight - 100;
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+                    currentSection = '#' + section.getAttribute('id');
+            }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        }
+        
+    // Ejecutar al cargar y al hacer scroll
+    highlightCurrentSection();
+    window.addEventListener('scroll', highlightCurrentSection);
+    
+    // Añadir clase CSS para estilizar el texto y botones según la sección
+    function setupContextualStyling() {
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const buttons = section.querySelectorAll('.btn');
+            const headings = section.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            
+            // Aplicar estilos basados en el fondo de la sección
+            if (section.classList.contains('bg-dark')) {
+                buttons.forEach(btn => {
+                    if (!btn.classList.contains('btn-primary') && !btn.classList.contains('btn-naranja')) {
+                        btn.classList.add('btn-light');
+                    }
+                });
+                
+                headings.forEach(heading => {
+                    heading.classList.add('text-light');
+                });
             }
         });
     }
     
-    // Verificar al cargar la página
-    checkReveal();
+    setupContextualStyling();
     
-    // Verificar al hacer scroll
-    window.addEventListener('scroll', checkReveal);
+    // Efecto de indicador de scroll
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        // Ocultar el indicador cuando el usuario hace scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '0.8';
+            }
+        });
+        
+        // Al hacer clic en el indicador, desplazarse a la siguiente sección
+        scrollIndicator.addEventListener('click', function() {
+            const nextSection = document.querySelector('.problemas-section');
+            if (nextSection) {
+                const headerHeight = mainHeader.offsetHeight;
+                const offsetPosition = nextSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+});
 
-    // Adaptar colores de iconos basados en el tema
-    const problemaIcons = document.querySelectorAll('.problema-icon');
-    problemaIcons.forEach(icon => {
-        // Iconos blancos para el fondo oscuro - mantener simple
-        icon.style.filter = 'brightness(0) invert(1)';
-    });
-    
-    // Añadir efectos sutiles a elementos seleccionados
-    function setupSubtleEffects() {
-        // Seleccionar elementos que tendrán el efecto de brillo
-        const accentElements = document.querySelectorAll('.btn-primary, .section-title::after, .problema-title::after, .servicio-title::after');
-        
-        // Aplicar una animación más sutil y profesional
-        accentElements.forEach(element => {
-            if (element) {
-                const randomDuration = 4 + Math.random() * 2; // Entre 4-6 segundos
-                const randomDelay = Math.random() * 3; // Delay aleatorio hasta 3 segundos
-                
-                element.style.animation = `subtleGlow ${randomDuration}s infinite ${randomDelay}s`;
-            }
-        });
-        
-        // Añadir efectos a los iconos de servicio
-        const servicioIcons = document.querySelectorAll('.servicio-icon');
-        servicioIcons.forEach(icon => {
-            const randomDuration = 5 + Math.random() * 3; // Entre 5-8 segundos
-            const randomDelay = Math.random() * 2; // Delay aleatorio hasta 2 segundos
-            
-            icon.style.animation = `iconPulse ${randomDuration}s infinite ${randomDelay}s`;
-        });
-    }
-    
-    // Estilos CSS adicionales para las animaciones refinadas
-    const styleElement = document.createElement('style');
-    styleElement.textContent = `
-        @keyframes subtleGlow {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
-            }
-        }
-        
-        @keyframes iconPulse {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
-                transform: scale(1.05);
-            }
-        }
-        
-        @keyframes iconShine {
-            0% {
-                background-position: 0% 0%;
-            }
-            100% {
-                background-position: 200% 0%;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        /* Efecto de brillo para los iconos de servicio - Modificado para quitar el efecto amarillo */
-        .servicio-item:hover .servicio-icon {
-            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #2563eb 100%);
-            background-size: 200% 100%;
-            animation: iconShine 2s linear infinite;
-            color: #ffffff;
-        }
-        
-        /* Asegurar que los iconos siempre sean visibles */
-        .servicio-item:hover .servicio-icon i {
-            color: #ffffff;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            transform: scale(1.1);
-        }
-        
-        /* Transición suave para la imagen de fondo */
-        .hero-section {
-            transition: background-image 0.8s ease-in-out;
-        }
-        
-        /* Efecto de seguimiento de cursor sutil */
-        .custom-cursor {
-            pointer-events: none;
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.5);
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            mix-blend-mode: screen;
-            box-shadow: 0 0 5px 2px rgba(59, 130, 246, 0.3);
-            transition: width 0.2s, height 0.2s, opacity 0.3s;
-            opacity: 0.7;
-        }
-        
-        .custom-cursor.hover {
-            width: 12px;
-            height: 12px;
-            opacity: 0.9;
-        }
-    `;
-    document.head.appendChild(styleElement);
-    
-    // Inicializar efectos
-    setupSubtleEffects();
-    
-    // Añadir efectos específicos para los servicios
-    const setupServiceEffects = () => {
-        const servicioItems = document.querySelectorAll('.servicio-item');
-        
-        servicioItems.forEach(item => {
-            // Obtener el icono dentro del item de servicio
-            const icon = item.querySelector('.servicio-icon i');
-            const iconContainer = item.querySelector('.servicio-icon');
-            
-            if (icon) {
-                // Eventos para el efecto al pasar el cursor
-                item.addEventListener('mouseenter', () => {
-                    // Aplicar transición suave al icono
-                    icon.style.transition = 'all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1)';
-                    icon.style.transform = 'scale(1.2)';
-                    icon.style.color = '#ffffff'; // Asegurar que el color es blanco
-                    
-                    // Mejorar el contenedor del icono
-                    if (iconContainer) {
-                        iconContainer.style.boxShadow = '0 0 15px rgba(37, 99, 235, 0.5), 0 0 10px rgba(59, 130, 246, 0.3)';
-                        iconContainer.style.borderColor = 'rgba(255, 255, 255, 0.5)';
-                    }
-                });
-                
-                item.addEventListener('mouseleave', () => {
-                    // Restaurar el estado original con una transición suave
-                    icon.style.transform = 'scale(1)';
-                    icon.style.color = '#ffffff'; // Mantener el color blanco
-                    
-                    // Restaurar el contenedor del icono
-                    if (iconContainer) {
-                        iconContainer.style.boxShadow = '';
-                        iconContainer.style.borderColor = '';
-                    }
-                });
-            }
-        });
-    };
-    
-    // Llamar a la función para configurar los efectos de servicio
-    setupServiceEffects();
-    
-    // Efecto de cursor personalizado más sutil
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-    
-    // Mostrar cursor solo cuando se mueve el ratón
-    let cursorTimeout;
-    
-    document.addEventListener('mousemove', e => {
-        cursor.style.opacity = '0.7';
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        clearTimeout(cursorTimeout);
-        cursorTimeout = setTimeout(() => {
-            cursor.style.opacity = '0';
-        }, 3000); // Desvanecer después de 3 segundos sin movimiento
-    });
-    
-    // Cambiar cursor cuando está sobre elementos interactivos
-    document.querySelectorAll('a, button, .btn, .problema-item, .servicio-item, .testimonio-item').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-        });
-    });
-    
-    // Ocultar cursor cuando el ratón sale de la ventana
-    document.addEventListener('mouseout', () => {
-        cursor.style.opacity = '0';
-    });
-    
-    // Mostrar elementos con transición suave
-    document.querySelectorAll('.hero-title, .hero-subtitle, .hero-text').forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        element.style.transitionDelay = (0.2 * index) + 's';
-        
-        setTimeout(() => {
-            element.style.opacity = '1';
-        }, 100);
-    });
+// Cargar la página con una transición suave
+window.addEventListener('load', function() {
+    document.body.classList.add('loaded');
 });
 
 // Función para animación de números/estadísticas (se puede agregar luego si se necesita)
